@@ -30,11 +30,12 @@ export default function Box() {
     <>
       <div ref={app} className="text-center">
         <h1 className="title">Air Jordan</h1>
-        <nav className="d-flex justify-content-center gap-5 p-3 position-fixed">
+        <nav>
           <button className="navbtn">Home</button>
           <button className="navbtn">Products</button>
           <button className="navbtn">Contact</button>
         </nav>
+        
         <div className="allBoxes">
           <div className="slider"></div>
           <div className="slider"></div>
