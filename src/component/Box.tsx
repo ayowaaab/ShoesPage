@@ -1,47 +1,61 @@
 import { gsap } from "gsap";
 import { useLayoutEffect, useRef, useState } from "react";
-import { ScrollTrigger } from "gsap/all";
+import { Flex, Heading, HStack, Stack, Button } from "@chakra-ui/react";
+
 import "/public/this.css";
 
 export default function Box() {
   const app = useRef(null);
   const [imgUrl, setImgUrl] = useState("redJordan");
-  gsap.registerPlugin(ScrollTrigger);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      gsap.set(".buttons", { opacity: 0 });
       gsap
         .timeline()
         .from(".slider", { stagger: 0.5, width: 0, duration: 1 })
-        .from(".navbtn", { stagger: 0.5, y:"+=10",opacity:0, duration: .5 })
+        .from(".navbtn", { stagger: 0.5, y: "+=10", opacity: 0, duration: 0.5 })
         .from(".title", { opacity: 0, y: "-=200", duration: 1 })
         .from("#img", { opacity: 0, y: "-=200", duration: 1, scale: 0.7 })
-        .from(".btn", { y: "+=20", opacity: 0, stagger: 0.5, duration: 0.5 });
+        .to(".buttons", { stagger: 0.5, y: "-=10", opacity: 1, duration: 1 });
     }, app);
 
     return () => ctx.revert();
   }, []);
 
   const onShoe = (val: string) => {
-    gsap.from("#img", { opacity: 0, y: "-=100", duration: 1 });
+    if (val === imgUrl) return;
     setImgUrl(val);
+    gsap.from("#img", { opacity: 0, y: "-=100", duration: 1 });
   };
+
   return (
     <>
-      <div ref={app} className="text-center">
-        <h1 className="title">Air Jordan</h1>
-        <nav>
+      <Stack ref={app}>
+        <Heading
+          opacity=".7"
+          fontSize={{ base: "60px", sm: "100px", xl: "200px" }}
+          className="title"
+        >
+          Air Jordan
+        </Heading>
+        <Flex
+          position={"fixed"}
+          py={5}
+          justifyContent={"center"}
+          gap={{ base: "1rem", sm: "5rem", xl: "10rem" }}
+          w={"full"}
+        >
           <button className="navbtn">Home</button>
           <button className="navbtn">Products</button>
           <button className="navbtn">Contact</button>
-        </nav>
-        
-        <div className="allBoxes">
-          <div className="slider"></div>
-          <div className="slider"></div>
-          <div className="slider"></div>
-        </div>
+        </Flex>
 
+        <div className="allBoxes">
+          <Stack className="slider"></Stack>
+          <Stack className="slider"></Stack>
+          <Stack className="slider"></Stack>
+        </div>
 
         <div className="d-flex flex-column align-items-center product">
           <img
@@ -51,28 +65,40 @@ export default function Box() {
             width={"800px"}
             alt="red"
           />
-          <div className="d-flex gap-5 justify-content-center">
-            <button
+          <HStack gap={{ base: 5, sm: 10 }}>
+            <Button
               onClick={() => onShoe("redJordan")}
-              className="fs-5 btn btn-danger px-3"
+              color={"white"}
+              fontWeight={300}
+              colorScheme={"red"}
+              w={{ base: "80px", sm: "100px", md: "100px", lg: "150px" }}
+              className="buttons"
             >
               Red
-            </button>
-            <button
+            </Button>
+            <Button
+              className="buttons"
               onClick={() => onShoe("greenJordan")}
-              className=" fs-5 btn btn-success px-3"
+              color={"white"}
+              fontWeight={300}
+              colorScheme="whatsapp"
+              w={{ base: "80px", sm: "100px", md: "100px", lg: "150px" }}
             >
               Green
-            </button>
-            <button
+            </Button>
+            <Button
+              className="buttons"
               onClick={() => onShoe("blackJordan")}
-              className="fs-5 btn btn-dark px-3"
+              colorScheme="blackAlpha"
+              fontWeight={300}
+              color={"white"}
+              w={{ base: "80px", sm: "100px", md: "100px", lg: "150px" }}
             >
               Black
-            </button>
-          </div>
+            </Button>
+          </HStack>
         </div>
-      </div>
+      </Stack>
     </>
   );
 }

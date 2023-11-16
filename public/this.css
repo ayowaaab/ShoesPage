@@ -53,7 +53,6 @@ nav{
   width: 100%;
 }
 .title {
-  font-size: 10rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -61,4 +60,5 @@ nav{
   color: #FFFABC;
   white-space: nowrap;
   z-index: 1;
+  user-select: none;
 }
