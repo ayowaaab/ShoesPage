@@ -1,17 +1,27 @@
-import { Grid ,Button} from "@chakra-ui/react"
+import gsap from "gsap";
+import { useLayoutEffect,useRef } from "react";
 
 function Nav() {
+  const app = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap
+        .timeline()
+        .from(".navbtn", {y:"+=10",opacity:0,duration:1,delay:2 })
+    }, app);
+
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <>
-    <Grid p={5} templateColumns={{base:"1fr",sm:"repeat(2,1fr)",md:"repeat(2,1fr)",xl:"repeat(4,1fr)"}} gap={2}>
-        <Button>contact</Button>
-        <Button>Products</Button>
-        <Button>List</Button>
-        <Button>Banana</Button>
-    </Grid>
-
+      <nav ref={app} className="d-flex justify-content-center gap-5 position-fixed p-3 ">
+     
+      </nav>
     </>
-  )
+  );
 }
 
-export default Nav
+export default Nav;
