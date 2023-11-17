@@ -1,7 +1,14 @@
 import { gsap } from "gsap";
 import { useLayoutEffect, useRef, useState } from "react";
-import { Flex, Heading, HStack, Stack, Button } from "@chakra-ui/react";
-
+import {
+  Flex,
+  Heading,
+  HStack,
+  Stack,
+  Button,
+  Icon,
+} from "@chakra-ui/react";
+import { FaFacebook, FaInstagram, FaGithub } from "react-icons/fa";
 import "/public/this.css";
 
 export default function Box() {
@@ -11,13 +18,14 @@ export default function Box() {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.set(".buttons", { opacity: 0 });
-      gsap
-        .timeline()
+      gsap.timeline()
         .from(".slider", { stagger: 0.5, width: 0, duration: 1 })
         .from(".navbtn", { stagger: 0.5, y: "+=10", opacity: 0, duration: 0.5 })
+        .from(".socialbtn", { stagger: 0.5, x: "-=50", opacity: 0, duration: 0.5 })
         .from(".title", { opacity: 0, y: "-=200", duration: 1 })
         .from("#img", { opacity: 0, y: "-=200", duration: 1, scale: 0.7 })
         .to(".buttons", { stagger: 0.5, y: "-=10", opacity: 1, duration: 1 });
+
     }, app);
 
     return () => ctx.revert();
@@ -31,7 +39,7 @@ export default function Box() {
 
   return (
     <>
-      <Stack ref={app}>
+      <Stack ref={app} >
         <Heading
           opacity=".7"
           fontSize={{ base: "60px", sm: "100px", xl: "200px" }}
@@ -49,6 +57,28 @@ export default function Box() {
           <button className="navbtn">Home</button>
           <button className="navbtn">Products</button>
           <button className="navbtn">Contact</button>
+        </Flex>
+        <Flex
+          position={"fixed"}
+          p={5}
+          justifyContent={{base:"space-around",md:"center"}}
+          alignItems={"flex-start"}
+          flexDirection={{base:"row",md:"column"}}
+          top={"3rem"}
+          gap={"2rem" }
+          h={"full"}
+          w={"full"}
+
+        >
+          <a target="_blank" href="https://github.com/ayowaaab" className="socialbtn">
+            <Icon _hover={{transform:"scale(1.1)",transition:".3s"}} fontSize={30} as={FaGithub} />
+          </a>
+          <a target="_blank" href="https://www.instagram.com/ayoub__dahmen/" className="socialbtn">
+            <Icon _hover={{transform:"scale(1.1)",transition:".3s"}} fontSize={30} as={FaInstagram} />
+          </a>
+          <a target="_blank" href="https://www.facebook.com/ayoub.dahmen.87" className="socialbtn">
+            <Icon _hover={{transform:"scale(1.1)",transition:".3s"}} fontSize={30} as={FaFacebook} />
+          </a>
         </Flex>
 
         <div className="allBoxes">
